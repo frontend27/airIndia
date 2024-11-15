@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" class="header-toolbar">
+    <!-- Logo -->
+    <span class="logo">
+      <img src="../../../assets/images/steam-train-design_1152-67.png" alt="Logo" />
+      <span class="app-title">My App</span>
+    </span>
+  
+    <!-- Desktop Links -->
+    <span class="spacer"></span>
+    <nav class="nav-links">
+      <button mat-button routerLink="/home">Home</button>
+      <button mat-button routerLink="/about">About</button>
+      <button mat-button routerLink="/contact">Contact</button>
+    </nav>
+  
+    <!-- Mobile Menu Icon -->
+    <button mat-icon-button class="mobile-menu" [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  
+    <!-- Mobile Menu -->
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/home">Home</button>
+      <button mat-menu-item routerLink="/about">About</button>
+      <button mat-menu-item routerLink="/contact">Contact</button>
+    </mat-menu>
+  </mat-toolbar>
+  

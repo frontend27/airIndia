@@ -1,0 +1,24 @@
+<div class="registerBg">
+    <div class="formcontent">
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+            <div style="text-align: center;">
+                <img src="../../../assets/images/steam-train-design_1152-67.png" alt="logo" class="img-fluid" style="width: 150px;margin: 0 auto;" />
+            </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="username"  />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" />
+            </mat-form-field>
+           
+            <button mat-raised-button color="primary" type="submit">
+               Login
+              </button>
+              <div style="padding-top: 10px;">
+               <small> If you don't have any account than <a routerLink="/sign-up">Go to Register</a></small>
+              </div>
+        </form>
+    </div>
+</div>

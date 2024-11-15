@@ -1,0 +1,45 @@
+.header-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+    height: 40px;
+    margin-right: 8px;
+  }
+  
+  .app-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .spacer {
+    flex: 1;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .mobile-menu {
+    display: none;
+  }
+  
+  /* Responsive styling */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+    .mobile-menu {
+      display: block;
+    }
+  }
+  

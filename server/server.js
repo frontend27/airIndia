@@ -5,11 +5,14 @@ const bodyParser = require('body-parser');
 const db = require('./config/db');
 const multer = require('multer');
 const path = require('path');
+const cors = require('cors');
 
+// Enable CORS for all routes
+const SECRET_KEY = 'ASFDGHFH12FG';
 
 const app = express();
 app.use(bodyParser.json());
-
+app.use(cors());
 // Register route
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -25,7 +28,7 @@ app.post('/register', async (req, res) => {
     // Insert user into the database
     const [result] = await db.execute(
       'INSERT INTO register (username, password) VALUES (?, ?)',
-      [username, hashedPassword]
+      [username, password]
     );
 
     res.status(201).json({ message: 'User registered successfully' });
@@ -36,33 +39,29 @@ app.post('/register', async (req, res) => {
 });
 
 //
-app.post('/login', (req, res)=>{
-  const {username, password} = res.body;
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
 
-  db.query(
-    'SELECT * FROM register WHERE username = ?',
-    [username],
-    async(err, result)=>{
-      if(err){
-        console.error('Database error:', err);
-        return res.status(401).json({ error: 'Database errro'})
-      }
-      if(result.lenght === 0){
-        return res.status(401).json({ error: 'Invalid username or password'})
-      }
-      const user = result[0];
-      //compare password
-      const match = await bcrypt.compare(password, user.password);
+  const sql = `SELECT * FROM register WHERE username = ?`;
+  db.query(sql, [username], async (err, results) => {
+      if (err) return res.status(500).send('Server error');
+      if (results.length === 0) return res.status(401).send('User not found');
 
-      if(!match){
-        return res.status(401).json({ error: 'Invalid username or password' })
-      }
-      res.status(200).json({ message: 'Login successful!' });
-    }
-  )
-})
+      const user = results[0];
+      const isMatch = await bcrypt.compare(password, user.password);
 
-// Configure multer for file storage
+      if (!isMatch) return res.status(401).send('Invalid credentials');
+
+      const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, {
+          expiresIn: '1h'
+      });
+
+      res.json({ token });
+  });
+});
+
+
+
 // Configure Multer for file storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/'),
@@ -95,6 +94,38 @@ app.get('/images', (req, res) => {
 // Serve uploaded images statically
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// get all register user
+app.get('/users', async (req, res) => {
+  try {
+    const [rows] = await db.execute('SELECT * FROM register');
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+//annual product
+app.post('/annualProduct', (req, res)=>{
+  const {agriculture, menerals, industry, others, years} = req.body;
+  const query = 'INSERT INTO annual_product(agriculture, menerals, industry, others, years) VALUES (?, ?, ?, ?, ?)';
+  db.query(query, [agriculture, menerals, industry, others, years], (err, result)=>{
+    if(err){
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.status(201).json({ id: result.insertId, agriculture, menerals, industry, others, years });
+  })
+})
+//create annual report list
+app.get('/annualReport', async(req, res) => {
+  //const query = 'SELECT * FROM annual_product';
+  try {
+    const [rows] = await db.execute('SELECT * FROM annual_product');
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching data' });
+  }
+});
 // Create a new user
 app.post('/trains', (req, res) => {
   const { train_name, train_number, departure, destination, departure_time, arrival_time } = req.body;

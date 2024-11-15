@@ -1,0 +1,33 @@
+<div>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+            <mat-label>Select an option</mat-label>
+            <mat-select formControlName="years">
+              <mat-option *ngFor="let option of options" [value]="option.value">
+                {{ option.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Agriculture: </mat-label>
+                <input matInput type="number" formControlName="agriculture" (input)="checkSum()" />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Menerals: </mat-label>
+                <input matInput type="number" formControlName="menerals" (input)="checkSum()" />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Industry: </mat-label>
+                <input matInput type="number" formControlName="industry" (input)="checkSum()" />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Others: </mat-label>
+                <input matInput type="number" formControlName="others" (input)="checkSum()" />
+            </mat-form-field>
+            <div *ngIf="!isValidSum">
+                <p style="color: red;">The sum of Agriculture, Menerals, Industry, and Others must be 100.</p>
+              </div>
+        <button type="submit" mat-raised-button [disabled]="productForm.invalid">Submit</button>
+      </form>
+      
+</div>
