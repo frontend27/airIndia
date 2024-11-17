@@ -1,1 +1,20 @@
-<p>dashboard1 works!</p>
+<div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+    <label for="yearFilter">Select Year:</label>
+    <select id="yearFilter" (change)="onYearChange($event)">
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+</div>
+<mat-grid-list cols="2" gutterSize="15px">
+    <mat-grid-tile>
+        <div>
+            <div>
+                <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+                    style="width: 100%; height: 400px; display: block;"></highcharts-chart>
+            </div>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions2"
+            style="width: 100%; height: 400px; display: block;"></highcharts-chart>
+    </mat-grid-tile>
+</mat-grid-list>

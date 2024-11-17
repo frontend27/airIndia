@@ -12,9 +12,17 @@ import { AsidebarComponent } from '../common/asidebar/asidebar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule, MatSelectionList } from '@angular/material/list';
 import { ProductivatyComponent } from '../productivaty/productivaty.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { TrainformComponent } from '../trainform/trainform.component';
+import { TrainlistComponent } from '../trainlist/trainlist.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'; 
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +30,9 @@ import { MatSelectModule } from '@angular/material/select';
     Dashboard1Component,
     HeaderComponent,
     AsidebarComponent,
-    ProductivatyComponent
+    ProductivatyComponent,
+    TrainformComponent,
+    TrainlistComponent
   ],
   imports: [
     CommonModule, 
@@ -34,9 +44,16 @@ import { MatSelectModule } from '@angular/material/select';
     MatSidenavModule,
     MatListModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
-  ]
+    MatSelectModule,
+    FormsModule,
+    MatGridListModule,
+    HighchartsChartModule,
+    MatTableModule
+  ],
+  providers: [MatDatepickerModule]
 })
 export class DashboardModule { }

@@ -1,0 +1,34 @@
+<form [formGroup]="trainform" (ngSubmit)="onSubmit()">
+    <mat-form-field >
+        <mat-label>Train Name</mat-label>
+        <input matInput formControlName="train_name" />
+    </mat-form-field>
+    <mat-form-field >
+        <mat-label>Train Number</mat-label>
+        <input type="number" matInput formControlName="train_number" />
+    </mat-form-field>
+    <mat-form-field >
+        <mat-label>Departure</mat-label>
+        <input matInput formControlName="departure" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Destination</mat-label>
+        <input matInput formControlName="destination" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Departure Time</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="departure_time" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Arrival Time</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="arrival_time" />
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+    
+    <button mat-raised-button color="primary" type="submit" >
+        Save
+      </button>
+</form>

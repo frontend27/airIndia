@@ -3,6 +3,8 @@ import { DashboardComponent } from './dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { Dashboard1Component } from '../dashboard1/dashboard1.component';
 import { ProductivatyComponent } from '../productivaty/productivaty.component';
+import { TrainformComponent } from '../trainform/trainform.component';
+import { TrainlistComponent } from '../trainlist/trainlist.component';
 
 const routes: Routes=[
     {
@@ -16,7 +18,15 @@ const routes: Routes=[
             {
                 path:'productivaty',
                 component: ProductivatyComponent
-            }  
+            },
+            {
+                path:'train-form',
+                component: TrainformComponent
+            },
+            {
+                path:'trains',
+                component:TrainlistComponent
+            } 
           ]
     }
 ]

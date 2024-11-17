@@ -104,6 +104,15 @@ app.get('/users', async (req, res) => {
     res.status(500).json({ error: 'Database error' });
   }
 });
+// category
+app.get('/categories', async(req, res) => {
+  try {
+    const [rows] = await db.execute('SELECT * FROM category');
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching data' });
+  }
+});
 //annual product
 app.post('/annualProduct', (req, res)=>{
   const {agriculture, menerals, industry, others, years} = req.body;

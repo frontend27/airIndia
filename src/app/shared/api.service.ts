@@ -34,4 +34,13 @@ export class ApiService {
   getAnnualReport():Observable<any>{
     return this.http.get<any>(this.baseUrl + 'annualreport');
   }
+  getAnnualProduction():Observable<any>{
+    return this.http.get(this.baseUrl+'categories');
+  }
+  createTrainRecort(data:any):Observable<any>{
+    return this.http.post(this.baseUrl+'trains', data);
+  }
+  getAnnualRecort():Observable<any>{
+    return this.http.get(this.baseUrl+ 'trains')
+  }
 }
